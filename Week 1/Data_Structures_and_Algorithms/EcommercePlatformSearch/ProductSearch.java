@@ -16,7 +16,6 @@ class Product {
 
 public class ProductSearch {
 
-    // Linear Search - O(n)
     public static Product linearSearch(Product[] products, int targetId) {
         for (Product product : products) {
             if (product.productId == targetId) {
@@ -26,7 +25,7 @@ public class ProductSearch {
         return null;
     }
 
-    // Binary Search - O(log n) - requires sorted array by productId
+
     public static Product binarySearch(Product[] products, int targetId) {
         int left = 0;
         int right = products.length - 1;
@@ -70,14 +69,5 @@ public class ProductSearch {
         result = binarySearch(products, 99);
         System.out.println(result != null ? "Found: " + result : "Not found");
 
-        /*
-         * Time Complexity Comparison:
-         * Linear Search  - O(n) best/average/worst
-         * Binary Search  - O(log n) average/worst, O(1) best
-         *
-         * Binary search is more suitable for large product catalogs where
-         * the data is already sorted. Linear search is simpler but slower
-         * for large datasets.
-         */
     }
 }

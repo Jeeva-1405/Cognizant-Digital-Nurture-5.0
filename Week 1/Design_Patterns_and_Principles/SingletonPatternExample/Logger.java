@@ -3,7 +3,7 @@ public class Logger {
     private static Logger instance;
 
     private Logger() {
-        // private constructor prevents instantiation from outside
+
     }
 
     public static Logger getInstance() {

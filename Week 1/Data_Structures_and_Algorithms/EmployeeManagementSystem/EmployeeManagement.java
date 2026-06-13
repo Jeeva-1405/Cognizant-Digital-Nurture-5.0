@@ -26,7 +26,6 @@ public class EmployeeManagement {
         count = 0;
     }
 
-    // O(1) if space available
     public void addEmployee(Employee employee) {
         if (count < employees.length) {
             employees[count] = employee;
@@ -37,7 +36,6 @@ public class EmployeeManagement {
         }
     }
 
-    // O(n)
     public Employee searchEmployee(int employeeId) {
         for (int i = 0; i < count; i++) {
             if (employees[i].employeeId == employeeId) {
@@ -47,7 +45,6 @@ public class EmployeeManagement {
         return null;
     }
 
-    // O(n)
     public void traverseEmployees() {
         System.out.println("All Employees:");
         for (int i = 0; i < count; i++) {
@@ -55,7 +52,6 @@ public class EmployeeManagement {
         }
     }
 
-    // O(n) - shift elements after deletion
     public void deleteEmployee(int employeeId) {
         for (int i = 0; i < count; i++) {
             if (employees[i].employeeId == employeeId) {
@@ -93,15 +89,6 @@ public class EmployeeManagement {
         System.out.println();
         system.traverseEmployees();
 
-        /*
-         * Time Complexity:
-         * Add      - O(1) when appending at end
-         * Search   - O(n) linear scan
-         * Traverse - O(n)
-         * Delete   - O(n) due to shifting
-         *
-         * Arrays are suitable when size is fixed and access by index is frequent.
-         * For frequent insertions/deletions, ArrayList or LinkedList is preferred.
-         */
+
     }
 }

@@ -16,7 +16,6 @@ class Order {
 
 public class OrderSorting {
 
-    // Bubble Sort - O(n^2)
     public static void bubbleSort(Order[] orders) {
         int n = orders.length;
         for (int i = 0; i < n - 1; i++) {
@@ -30,7 +29,6 @@ public class OrderSorting {
         }
     }
 
-    // Quick Sort - O(n log n) average
     public static void quickSort(Order[] orders, int low, int high) {
         if (low < high) {
             int pivotIndex = partition(orders, low, high);
@@ -92,13 +90,5 @@ public class OrderSorting {
         quickSort(ordersForQuick, 0, ordersForQuick.length - 1);
         printOrders(ordersForQuick);
 
-        /*
-         * Performance Comparison:
-         * Bubble Sort - O(n^2) time, O(1) space - simple but inefficient for large datasets
-         * Quick Sort  - O(n log n) average time, O(log n) space - preferred for large datasets
-         *
-         * Quick Sort is generally preferred because it performs significantly better
-         * on large order lists typical in e-commerce platforms.
-         */
     }
 }

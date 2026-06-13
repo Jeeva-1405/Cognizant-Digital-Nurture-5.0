@@ -31,13 +31,12 @@ class Product {
 class Inventory {
     private Map<Integer, Product> products = new HashMap<>();
 
-    // O(1) average time
     public void addProduct(Product product) {
         products.put(product.getProductId(), product);
         System.out.println("Added: " + product);
     }
 
-    // O(1) average time
+
     public void updateProduct(int productId, int newQuantity, double newPrice) {
         Product product = products.get(productId);
         if (product != null) {
@@ -49,7 +48,7 @@ class Inventory {
         }
     }
 
-    // O(1) average time
+
     public void deleteProduct(int productId) {
         Product removed = products.remove(productId);
         if (removed != null) {
@@ -87,12 +86,6 @@ public class InventorySystem {
         System.out.println();
         inventory.displayAll();
 
-        /*
-         * Time Complexity Analysis:
-         * add    - O(1) average using HashMap
-         * update - O(1) average using HashMap
-         * delete - O(1) average using HashMap
-         * HashMap is ideal here because productId is unique and used as the key.
-         */
+
     }
 }

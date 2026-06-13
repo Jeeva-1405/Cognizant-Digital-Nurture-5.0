@@ -19,7 +19,6 @@ class Task {
 public class TaskManagement {
     private Task head;
 
-    // O(n) - insert at end
     public void addTask(Task task) {
         if (head == null) {
             head = task;
@@ -33,7 +32,6 @@ public class TaskManagement {
         System.out.println("Added: " + task);
     }
 
-    // O(n)
     public Task searchTask(int taskId) {
         Task current = head;
         while (current != null) {
@@ -45,7 +43,6 @@ public class TaskManagement {
         return null;
     }
 
-    // O(n)
     public void traverseTasks() {
         System.out.println("All Tasks:");
         Task current = head;
@@ -55,7 +52,6 @@ public class TaskManagement {
         }
     }
 
-    // O(n)
     public void deleteTask(int taskId) {
         if (head == null) {
             System.out.println("No tasks found.");
@@ -102,15 +98,5 @@ public class TaskManagement {
         System.out.println();
         taskList.traverseTasks();
 
-        /*
-         * Time Complexity:
-         * Add      - O(n) to traverse to end, O(1) if we maintain a tail pointer
-         * Search   - O(n)
-         * Traverse - O(n)
-         * Delete   - O(n)
-         *
-         * Linked lists are better than arrays for dynamic data where
-         * insertions and deletions are frequent, as there is no shifting cost.
-         */
     }
 }

@@ -16,7 +16,7 @@ class Book {
 
 public class LibraryManagement {
 
-    // Linear Search by title - O(n)
+
     public static Book linearSearchByTitle(Book[] books, String targetTitle) {
         for (Book book : books) {
             if (book.title.equalsIgnoreCase(targetTitle)) {
@@ -26,7 +26,6 @@ public class LibraryManagement {
         return null;
     }
 
-    // Binary Search by title - O(log n) - array must be sorted by title
     public static Book binarySearchByTitle(Book[] books, String targetTitle) {
         int left = 0;
         int right = books.length - 1;
@@ -47,7 +46,6 @@ public class LibraryManagement {
     }
 
     public static void main(String[] args) {
-        // Unsorted array for linear search
         Book[] library = {
             new Book(1, "Clean Code", "Robert C. Martin"),
             new Book(2, "Effective Java", "Joshua Bloch"),
@@ -56,7 +54,6 @@ public class LibraryManagement {
             new Book(5, "Refactoring", "Martin Fowler")
         };
 
-        // Sorted array for binary search (sorted alphabetically by title)
         Book[] sortedLibrary = {
             new Book(1, "Clean Code", "Robert C. Martin"),
             new Book(3, "Design Patterns", "Gang of Four"),
@@ -81,14 +78,5 @@ public class LibraryManagement {
         result = binarySearchByTitle(sortedLibrary, "Unknown Book");
         System.out.println(result != null ? "Found: " + result : "Not found");
 
-        /*
-         * Time Complexity:
-         * Linear Search - O(n) - works on any array, no sorting required
-         * Binary Search - O(log n) - requires sorted array
-         *
-         * For small libraries, linear search is sufficient.
-         * For large libraries with thousands of books, binary search
-         * is significantly faster when data is pre-sorted.
-         */
     }
 }
