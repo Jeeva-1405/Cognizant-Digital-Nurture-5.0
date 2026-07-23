@@ -1,0 +1,86 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven-3.9'
+        jdk 'JDK-17'
+    }
+
+    environment {
+        DEPLOY_ENV = 'staging'
+        ARTIFACT_NAME = 'employee-management-service.jar'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Jeeva-1405/employee-management-service.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit '**/target/surefire-reports/*.xml'
+                }
+            }
+        }
+
+        stage('Code Quality Scan') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'mvn package -DskipTests'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t jeeva1405/employee-management-service:${BUILD_NUMBER} .'
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh 'docker push jeeva1405/employee-management-service:${BUILD_NUMBER}'
+                }
+            }
+        }
+
+        stage('Deploy to Staging') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh 'ssh deploy@staging-server "docker pull jeeva1405/employee-management-service:${BUILD_NUMBER} && docker-compose up -d"'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully for build ${BUILD_NUMBER}'
+        }
+        failure {
+            echo 'Pipeline failed at build ${BUILD_NUMBER}'
+        }
+        always {
+            cleanWs()
+        }
+    }
+}
